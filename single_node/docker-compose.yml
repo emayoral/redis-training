@@ -1,0 +1,16 @@
+version: '3'
+services:
+  redisserver:
+    image: redis:latest
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data:/data
+      - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
+  redisclient:
+    image: redis:latest
+    command: redis-cli -h redisserver
+    tty: true
+    stdin_open: true
+ 

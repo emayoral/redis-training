@@ -1,0 +1,24 @@
+version: '3'
+services:
+  redismaster:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./master/data:/data
+      - ./master/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+  redisreplica:
+    image: redis:latest
+    ports:
+      - "6378:6378"
+    volumes:
+      - ./replica/data:/data
+      - ./replica/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server /usr/local/etc/redis/redis.conf
+  redisclient:
+    image: redis:latest
+    command: redis-cli
+    tty: true
+    stdin_open: true
+ 

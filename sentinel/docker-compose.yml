@@ -1,0 +1,49 @@
+version: '3'
+services:
+  sentinel-a:
+    image: redis:latest
+    ports:
+      - "26379:26379"
+    volumes:
+      - ./sentinel-a/data:/data
+      - ./sentinel-a/conf:/usr/local/etc/redis
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+  sentinel-b:
+    image: redis:latest
+    ports:
+      - "26378:26378"
+    volumes:
+      - ./sentinel-b/data:/data
+      - ./sentinel-b/conf:/usr/local/etc/redis
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+  sentinel-c:
+    image: redis:latest
+    ports:
+      - "6377:6377"
+      - "26377:26377"
+    volumes:
+      - ./sentinel-c/data:/data
+      - ./sentinel-c/conf:/usr/local/etc/redis
+    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+  master:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./master/data:/data
+      - ./master/conf:/usr/local/etc/redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+  slave-a:
+    image: redis:latest
+    ports:
+      - "6378:6378"
+    volumes:
+      - ./slave-a/data:/data
+      - ./slave-a/conf:/usr/local/etc/redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+  redisclient:
+    image: redis:latest
+    command: redis-cli
+    tty: true
+    stdin_open: true
+ 
