@@ -1,0 +1,58 @@
+version: '3'
+services:
+  cluster-a:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./cluster-a/data:/data
+      - ./cluster-a/conf:/usr/local/etc/redis
+    command: redis-sentinel /usr/local/etc/redis/redis.conf
+  cluster-b:
+    image: redis:latest
+#    ports:
+#      - "6378:6378"
+    volumes:
+      - ./cluster-b/data:/data
+      - ./cluster-b/conf:/usr/local/etc/redis
+    command: redis-sentinel /usr/local/etc/redis/redis.conf
+  cluster-c:
+    image: redis:latest
+#    ports:
+#      - "6377:6377"
+    volumes:
+      - ./cluster-c/data:/data
+      - ./cluster-c/conf:/usr/local/etc/redis
+    command: redis-sentinel /usr/local/etc/redis/redis.conf
+  replica-a:
+    image: redis:latest
+#    ports:
+#      - "6379:6379"
+    volumes:
+      - ./replica-a/data:/data
+      - ./replica-a/conf:/usr/local/etc/redis
+    command: redis-sentinel /usr/local/etc/redis/redis.conf
+  replica-b:
+    image: redis:latest
+#    ports:
+#      - "6379:6379"
+    volumes:
+      - ./replica-a/data:/data
+      - ./replica-a/conf:/usr/local/etc/redis
+    command: redis-sentinel /usr/local/etc/redis/redis.conf
+  replica-c:
+    image: redis:latest
+#    ports:
+#      - "6379:6379"
+    volumes:
+      - ./replica-a/data:/data
+      - ./replica-a/conf:/usr/local/etc/redis
+    command: redis-sentinel /usr/local/etc/redis/redis.conf
+  redisclient:
+    image: redis:latest
+    volumes:
+      - ./redisclient/data:/data
+    command: /bin/bash
+    tty: true
+    stdin_open: true
+ 

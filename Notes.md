@@ -24,7 +24,7 @@ pip install https://github.com/containers/podman-compose/archive/devel.tar.gz
 ```
 
 
-I have 3 sets of configs:
+I have 4 sets of configs:
 
 * single_node: 1 server + 1 client
 
@@ -32,4 +32,14 @@ I have 3 sets of configs:
 
 * sentinel: 3 sentinel + 1 master + 1 replica + 1 client
 
+* cluster: 3 cluster nodes + 3 replica nodes + 1 client
+
+
+
+
+
+Nice reads:
+https://community.pivotal.io/s/article/How-to-setup-HAProxy-and-Redis-Sentinel-for-automatic-failover-between-Redis-Master-and-Slave-servers
+https://redis.io/topics/latency
+https://tech.trivago.com/2017/01/25/learn-redis-the-hard-way-in-production/
 

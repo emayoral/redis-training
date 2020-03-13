@@ -19,7 +19,6 @@ services:
   sentinel-c:
     image: redis:latest
     ports:
-      - "6377:6377"
       - "26377:26377"
     volumes:
       - ./sentinel-c/data:/data
